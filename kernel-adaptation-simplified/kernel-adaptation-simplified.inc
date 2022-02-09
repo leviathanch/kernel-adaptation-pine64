@@ -52,7 +52,9 @@ Source:         %{name}-%{version}.tar.bz2
 Requires(pre):  kmod >= 9
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(openssl)
+%if %{undefined suse_version}
 BuildRequires:  mer-kernel-checks
+%endif
 #BuildRequires:  kmod >= 9
 #BuildRequires:  perl
 #BuildRequires:  fdupes
@@ -60,9 +62,13 @@ BuildRequires:  flex
 BuildRequires:  bison
 BuildRequires:  bc
 %if 0%{?crossbuild:1}
-BuildRequires:  cross-%{crossbuild}-gcc
 BuildRequires:  cross-%{crossbuild}-binutils
+%if %{undefined suse_version}
+BuildRequires:  cross-%{crossbuild}-gcc
 BuildRequires:  cross-%{crossbuild}-as
+%else
+BuildRequires:  cross-%{crossbuild}-gcc10
+%endif
 %endif
 
 %description
