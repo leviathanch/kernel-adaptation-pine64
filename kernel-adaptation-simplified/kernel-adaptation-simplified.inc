@@ -86,9 +86,13 @@ export ARCH=%{kernel_arch}
 export LOCALVERSION="-%{device}"
 
 %if 0%{?crossbuild:1}
+%if %{defined suse_version}
+export CROSS_COMPILE=%{crossbuild}-suse-linux-
+%else
 export CROSS_COMPILE=%{crossbuild}-meego-linux-gnu-
 # FIXME? Shouldn't be needed
 export PATH=/opt/cross/bin/:$PATH
+%endif
 %endif
 
 defconfig_name=$(basename %{defconfig})
